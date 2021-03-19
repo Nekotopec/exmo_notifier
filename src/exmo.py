@@ -39,7 +39,7 @@ async def compare_bit_with_threshold(threshold: float):
             received_data = await get_bid(client)
         print(received_data)
         bid_top = received_data.get('BTC_USD').get('bid_top')
-        if float(bid_top) < threshold:
+        if bid_top and float(bid_top) < threshold:
             ask_top = received_data.get('BTC_USD').get('ask_top')
             await telegram_bot.send_notification(ask_top=ask_top,
                                                  bid_top=bid_top,
