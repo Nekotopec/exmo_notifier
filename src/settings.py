@@ -12,6 +12,11 @@ CHAT_IDS = [243279187]
 
 # webhook settings
 WEBHOOK_HOST = os.getenv('HOST')
+
+if not WEBHOOK_HOST:
+    raise TypeError('WEBHOOK_HOST can`t be blank.\n'
+                    '   Set environment var `WEBHOOK_HOST` with your token.')
+    
 WEBHOOK_PATH = f'/bot{TELEGRAM_TOKEN}/webhook'
 
 # webhook self signed serts.
