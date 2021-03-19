@@ -45,4 +45,4 @@ async def compare_bit_with_threshold(threshold: float):
                                                  bid_top=bid_top,
                                                  chat_id=243279187)
             break
-        await asyncio.sleep(1)
+        await asyncio.sleep(60)
