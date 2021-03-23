@@ -1,7 +1,5 @@
-from base import BaseExmoApi
+from base import PublicExmoCoreApi
 from typing import List, Union
-import asyncio
-from aiohttp import ClientSession
 
 
 class ExmoPublicApiException(Exception):
@@ -13,7 +11,7 @@ class BadResolution(ExmoPublicApiException):
     """Resolution not in allowed resolution values."""
 
 
-class PublicExmoApi(BaseExmoApi):
+class PublicExmoApi(PublicExmoCoreApi):
     """
     This API does not require authorization and can be accessed using the
     GET or POST methods.
@@ -24,14 +22,23 @@ class PublicExmoApi(BaseExmoApi):
     }
 
     async def trades(self, pairs: List[str]) -> dict:
-        """List of the deals on currency pairs."""
+        """List of the deals on currency pairs.
+
+        Args:
+            pairs: one or various currency pairs separated by commas
+        """
 
         method = 'trades'
         data = {'pair': ','.join(pairs)}
         return await self._make_post(method, data)
 
     async def order_book(self, pairs: List[str], limit: int = None) -> dict:
-        """The book of current orders on the currency pair."""
+        """The book of current orders on the currency pair.
+
+        Args:
+            pairs: one or various currency pairs separated by commas
+            limit: the number of displayed positions (default: 100, max: 1000)
+        """
 
         method = 'order_book'
         data = {
@@ -72,6 +79,10 @@ class PublicExmoApi(BaseExmoApi):
         """
         Calculating the sum of buying a certain amount of currency for
         the particular currency pair.
+
+        Args:
+            pair: currency pair
+            quantity: quantity to buy
         """
 
         method = 'required_amount'
@@ -86,7 +97,16 @@ class PublicExmoApi(BaseExmoApi):
                               resolution: Union[int, str],
                               from_: int,
                               to: int):
-        """Get candles history."""
+        """Get candles history.
+
+        Args:
+            pair: currency pair
+            resolution: discreteness of candles, possible values: 1, 5, 15, 30,
+                45, 60, 120, 180, 240, D, W, M
+            from_: beginning of period
+            to: end of period
+        """
+
         if resolution not in self._resolution_allowed_values:
             raise BadResolution(
                 f'`resolution` must be one of {self._resolution_allowed_values}'

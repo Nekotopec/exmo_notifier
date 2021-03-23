@@ -3,6 +3,9 @@
 .idea/
 
 /keys
+
+# try files
+try*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

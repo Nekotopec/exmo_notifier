@@ -6,7 +6,6 @@ if not TELEGRAM_TOKEN:
     raise TypeError('TELEGRAM TOKEN can`t be blank.\n'
                     '   Set environment var `TELEGRAM_TOKEN` with your token.')
 
-
 # List of chat ids.
 CHAT_IDS = [243279187]
 
@@ -28,3 +27,8 @@ WEBAPP_HOST = '0.0.0.0'  # or ip
 WEBHOOK_PORT = 8443
 
 WEBHOOK_URL = f"https://{WEBHOOK_HOST}:{WEBHOOK_PORT}{WEBHOOK_PATH}"
+
+# Exmo authentication settings.
+
+EXMO_API_KEY = os.getenv('EXMO_API_KEY')
+EXMO_API_SECRET_KEY = os.getenv('EXMO_API_SECRET_KEY')
