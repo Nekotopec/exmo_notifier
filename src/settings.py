@@ -1,4 +1,5 @@
 import os
+from exmo.tasks.task_collections import DictTaskCollection
 
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
@@ -32,3 +33,7 @@ WEBHOOK_URL = f"https://{WEBHOOK_HOST}:{WEBHOOK_PORT}{WEBHOOK_PATH}"
 
 EXMO_API_KEY = os.getenv('EXMO_API_KEY')
 EXMO_API_SECRET_KEY = os.getenv('EXMO_API_SECRET_KEY')
+
+# Default task collection (task storage caretaker).
+
+DEFAULT_TASK_COLLECTION = DictTaskCollection

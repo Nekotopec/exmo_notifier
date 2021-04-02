@@ -2,8 +2,20 @@ from aiohttp import ClientSession
 import json
 import asyncio
 import telegram_bot
+import aiogram
+from typing import NamedTuple
 
-tasks = list()
+
+class OrderData(NamedTuple):
+    """Order data from exmo."""
+    top_ask: float
+    top_bid: float
+    ask: list
+    bid: list
+
+
+async def notify(chat_id: int, bot: aiogram.Bot, data: OrderData):
+    await bot.send_message(chat_id, '')
 
 
 async def start_comparing(threshold):

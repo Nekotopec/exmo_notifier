@@ -1,4 +1,4 @@
-from base import PublicExmoCoreApi
+from .base import PublicExmoCoreApi
 from typing import List, Union
 
 

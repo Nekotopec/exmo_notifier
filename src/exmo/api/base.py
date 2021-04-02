@@ -3,6 +3,7 @@ import time
 import urllib
 import hashlib
 import hmac
+import asyncio
 
 
 class BaseExmoApi:
@@ -13,9 +14,22 @@ class BaseExmoApi:
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    def __init__(self, session: ClientSession):
+    def __init__(self, session: ClientSession = None):
+        if session is None:
+            session = ClientSession()
         self._session = session
         self._session.headers.update(self._headers)
+
+    async def _close_session(self):
+        await self._session.close()
+
+    def __del__(self):
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = asyncio.get_event_loop()
+        task = loop.create_task(self._close_session())
+        loop.run_until_complete(task)
 
 
 class PublicExmoCoreApi(BaseExmoApi):

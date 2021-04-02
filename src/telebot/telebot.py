@@ -64,6 +64,8 @@ class WebhookBotMixin:
 
         logging.warning('Webhook have been deleted.')
 
+        # Close bot.
+
     def check_settings(self):
         """Check for existing settings."""
         return not (self._webhook_url and
